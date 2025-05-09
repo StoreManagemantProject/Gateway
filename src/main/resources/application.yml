@@ -1,0 +1,17 @@
+server:
+  port: 8888
+
+jwt:
+  public:
+    key:
+      path: ${JWT_PUBLIC_KEY_PATH:classpath:public_key.pem}
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: main-api
+          uri: http://localhost:8080
+          predicates:
+            - Path=/**
+          filters:
+            - name: JwtAuthenticationFilter
